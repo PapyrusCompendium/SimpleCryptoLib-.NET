@@ -51,8 +51,8 @@ namespace SimpleCryptoLib
             using (MemoryStream input = new MemoryStream(data.Skip(16).ToArray()))
             using (CryptoStream reader = new CryptoStream(input, decrypter, CryptoStreamMode.Read))
             {
-                reader.Read(decrypted, 0, decrypted.Length);
-                return decrypted;
+                int decryptedLength = reader.Read(decrypted, 0, decrypted.Length);
+                return decrypted.Take(decryptedLength).ToArray();
             }
         }
     }
